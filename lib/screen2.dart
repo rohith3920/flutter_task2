@@ -36,7 +36,7 @@ class _Screen2State extends State<Screen2> {
             ),
             Text(
               'ACKNOWLEDGEMENTS',
-              style: TextStyle(color: Colors.deepPurple, fontSize: 20),
+              style: TextStyle(color: Colors.deepPurple, fontSize: 17),
             ),
             SizedBox(
               width: 10,
@@ -45,9 +45,28 @@ class _Screen2State extends State<Screen2> {
               Icons.translate,
               color: Colors.deepPurple,
             ),
-            Text(
-              'English',
-              style: TextStyle(color: Colors.deepPurple, fontSize: 12),
+            TextButton(
+              onPressed: () {
+                showMenu(
+                  context: context,
+                  position: RelativeRect.fromLTRB(25.0, 25.0, 0.0, 0.0),
+                  items: <PopupMenuEntry>[
+                    PopupMenuItem(
+                      child: Text('English'),
+                    ),
+                    PopupMenuItem(
+                      child: Text('Telugu'),
+                    ),
+                    PopupMenuItem(
+                      child: Text('Bahasa'),
+                    ),
+                  ],
+                );
+              },
+              child: Text(
+                'English',
+                style: TextStyle(color: Colors.deepPurple, fontSize: 12),
+              ),
             ),
           ],
         ),

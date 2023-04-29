@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task5/navbar.dart';
+import 'package:flutter_task5/screen4.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,6 +12,10 @@ class Screen3 extends StatefulWidget {
 class _Screen3State extends State<Screen3> {
   final _formKey = GlobalKey<FormState>();
   File? imageFile;
+  final billing = TextEditingController();
+  final billingDate = TextEditingController();
+  final odnNumber = TextEditingController();
+  final country = TextEditingController();
 
   // File? images;
   // Future getImage(bool isCamera) async {
@@ -53,7 +58,7 @@ class _Screen3State extends State<Screen3> {
             ),
             Text(
               'ACKNOWLEDGEMENTS',
-              style: TextStyle(color: Colors.deepPurple, fontSize: 20),
+              style: TextStyle(color: Colors.deepPurple, fontSize: 17),
             ),
             SizedBox(
               width: 10,
@@ -62,13 +67,50 @@ class _Screen3State extends State<Screen3> {
               Icons.translate,
               color: Colors.deepPurple,
             ),
-            GestureDetector(
+            TextButton(
+              onPressed: () {
+                showMenu(
+                  context: context,
+                  position: RelativeRect.fromLTRB(25.0, 25.0, 0.0, 0.0),
+                  items: <PopupMenuEntry>[
+                    PopupMenuItem(
+                      child: Text('English'),
+                    ),
+                    PopupMenuItem(
+                      child: Text('Telugu'),
+                    ),
+                    PopupMenuItem(
+                      child: Text('Bahasa'),
+                    ),
+                  ],
+                );
+              },
               child: Text(
                 'English',
-                style: TextStyle(color: Colors.deepPurple, fontSize: 12),
+                style: TextStyle(color: Colors.deepPurple),
               ),
-              onTap: () {},
             ),
+            // PopupMenuButton(
+            //   itemBuilder: (BuildContext context) => [
+            //     PopupMenuItem(
+            //       child: Text('English'),
+            //       value: 1,
+            //     ),
+            //     PopupMenuItem(
+            //       child: Text('Telugu'),
+            //       value: 2,
+            //     ),
+            //     PopupMenuItem(
+            //       child: Text('Bahasa'),
+            //       value: 3,
+            //     ),
+            //   ],
+            //   onSelected: (value) {
+            //     setState(() {
+            //       value = value;
+            //     });
+            //   },
+            // ),
           ],
         ),
       ),
@@ -211,8 +253,7 @@ class _Screen3State extends State<Screen3> {
                             child: TextFormField(
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-
-                              // controller: _firstNames,
+                              controller: billing,
                               decoration: InputDecoration(
                                 hintText: '123456789',
                                 enabledBorder: OutlineInputBorder(
@@ -232,6 +273,12 @@ class _Screen3State extends State<Screen3> {
                                 ),
                                 isDense: true,
                               ),
+                              validator: (billing) {
+                                if (billing!.isEmpty) {
+                                  return 'Please enter the Billing Document';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -254,7 +301,7 @@ class _Screen3State extends State<Screen3> {
                             child: TextFormField(
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              // controller: _firstNames,
+                              controller: billingDate,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
@@ -272,6 +319,12 @@ class _Screen3State extends State<Screen3> {
                                 ),
                                 isDense: true,
                               ),
+                              validator: (billingDate) {
+                                if (billingDate!.isEmpty) {
+                                  return 'Please enter the billing date';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -292,6 +345,7 @@ class _Screen3State extends State<Screen3> {
                           SizedBox(
                             width: 370,
                             child: TextFormField(
+                              controller: odnNumber,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
@@ -315,6 +369,12 @@ class _Screen3State extends State<Screen3> {
                                 ),
                                 isDense: true,
                               ),
+                              validator: (odnNumber) {
+                                if (odnNumber!.isEmpty) {
+                                  return 'Please enter the odn number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -335,6 +395,7 @@ class _Screen3State extends State<Screen3> {
                           SizedBox(
                             width: 370,
                             child: TextFormField(
+                              controller: country,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
@@ -354,6 +415,12 @@ class _Screen3State extends State<Screen3> {
                                 ),
                                 isDense: true,
                               ),
+                              validator: (country) {
+                                if (country!.isEmpty) {
+                                  return 'Please enter the country';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                         ],
@@ -367,7 +434,17 @@ class _Screen3State extends State<Screen3> {
                 child: Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (billing.text.isNotEmpty &&
+                            billingDate.text.isNotEmpty &&
+                            odnNumber.text.isNotEmpty &&
+                            country.text.isNotEmpty) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Screen4()),
+                          );
+                        }
+                      },
                       child: Text('Submit'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
